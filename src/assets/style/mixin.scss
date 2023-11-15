@@ -1,0 +1,52 @@
+$theme-color: #66a6ff;
+
+//多行文本溢出
+@mixin text-multiple-overflow($width: 100%, $line: 1) {
+    width: width;
+    /* 必须结合的属性 ，将对象作为弹性伸缩盒子模型显示 。*/
+    display: -webkit-box;
+    /* 必须结合的属性 ，设置或检索伸缩盒对象的子元素的排列方式 。*/
+    -webkit-box-orient: vertical;
+    /*要显示的行数*/
+    -webkit-line-clamp: $line;
+    /*溢出部分隐藏*/
+    overflow: hidden;
+}
+
+//单行文本溢出
+@mixin text-overflow($width: 100%) {
+    width: $width;
+    /*溢出部分隐藏*/
+    overflow: hidden;
+    /*禁止换行*/
+    white-space: nowrap;
+    /*显示省略号*/
+    text-overflow: ellipsis;
+}
+
+/**
+ *默认flex样式水平，垂直居中
+ *	1、$direction -- 水平排/垂直排
+ *	2、$justify 
+ *	3、$align
+ *	4、$flex-wrap: null -- 清空所有对齐样式
+ */
+@mixin flex($justify: null, $align: null, $direction: row, $flex-wrap: null) {
+    display: flex;
+
+    @if ($justify !=null) {
+        justify-content: $justify;
+    }
+
+    @if ($align !=null) {
+        align-items: $align;
+    }
+
+    @if ($direction !=null) {
+        flex-direction: $direction;
+    }
+
+    @if ($flex-wrap !=null) {
+        flex-wrap: $flex-wrap;
+    }
+}
