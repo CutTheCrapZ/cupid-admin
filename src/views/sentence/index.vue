@@ -26,19 +26,21 @@
         </div>
       </div>
     </div>
-    <el-table :data="tableData" stripe style="width: 100%">
-      <el-table-column type="index" width="80" label="No." align="center" />
-      <el-table-column prop="desc" label="title" />
-      <el-table-column prop="src" label="image">
+    <el-table :data="tableData" stripe style="width: 100%" :cell-style="{ 'text-align': 'center' }"
+      :header-cell-style="{ 'text-align': 'center' }">
+      <el-table-column type="index" width="80" label="No." />
+      <el-table-column prop="sentences" label="content" width="520" />
+      <el-table-column prop="like" label="like" width="80" />
+      <el-table-column prop="tag" label="tag" width="80">
         <template #default="scope">
-          <div style="display: flex; align-items: center;height: 3.2rem;width: 100%;" @click="console.log(scope)">
-            <el-image :preview-teleported="true" :preview-src-list="[scope.row.imgUrl[0]]" :src="scope.row.imgUrl[0]"
-              fit="fill" style="height: 3.2rem;" />
-
-          </div>
+          <el-button link type="primary" size="small" v-if="scope.row.tag == 0">💬一言</el-button>
+          <el-button link type="primary" size="small" v-else-if="scope.row.tag == 1">💬一言©</el-button>
+          <el-button link type="primary" size="small" v-else-if="scope.row.tag == 2">💫想法</el-button>
+          <el-button link type="danger" size="small" v-else>👻生活</el-button>
         </template>
       </el-table-column>
       <el-table-column prop="created_d" label="created" />
+      <el-table-column prop="updated_d" label="updated" />
       <el-table-column label="action" fixed="right" width="120">
         <template #default="scope">
           <el-button link type="primary" size="small" @click="edit(scope.row)">Edit</el-button>
@@ -51,7 +53,7 @@
         :page-size="reqData.pageSize" />
     </div>
   </div>
-  <el-dialog v-model="dialogVisible" width="60%">
+  <el-dialog v-model="dialogVisible" width="50%">
     <Upload v-if="dialogVisible" :editData="editData" @close="close" />
   </el-dialog>
 </template>
@@ -61,17 +63,22 @@ import {
   Search, Filter, Upload as Up
 } from '@element-plus/icons-vue'
 import { ref, onMounted } from 'vue'
-// import { ElMessageBox } from 'element-plus'
+import { ElMessage } from 'element-plus'
 import Upload from "./components/Upload.vue";
-import { getStyleList, deleteById } from "@/api/style";
+import { getStyleList, deleteById } from "@/api/sentence";
 const editData = ref({})
 const edit = (row: object) => {
   editData.value = row
   dialogVisible.value = true
 }
 const deleteItem = async (id: string) => {
-  await deleteById(id);
-  getList();
+  let res = await deleteById(id);
+  if (res.code == 200) {
+    ElMessage.success('Delete success!')
+    getList();
+  } else {
+    ElMessage.error('Delete error!')
+  }
 }
 const tableData = ref([])
 const search_icon = ref<HTMLElement>()

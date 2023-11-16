@@ -1,5 +1,5 @@
 <template>
-    <el-menu default-active="/style" :router="true" class="el-menu-container" active-text-color="#6c90e6" text-color="#fff"
+    <el-menu default-active="/" :router="true" class="el-menu-container" active-text-color="#6c90e6" text-color="#fff"
         :collapse="isCollapse" @select="handleSelect">
         <el-menu-item index="/">
             <el-icon><icon-menu /></el-icon>

@@ -2,18 +2,22 @@ import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
 
 // 2. 配置路由
 const routes: Array<RouteRecordRaw> = [
-//   {
-//     path: "/",
-//     component: () => import("@/views/home.vue"),
-//     meta: {
-//       keepAlive: true
-//     }
-//   },
+  //   {
+  //     path: "/",
+  //     component: () => import("@/views/home.vue"),
+  //     meta: {
+  //       keepAlive: true
+  //     }
+  //   },
   {
     path: "/style",
     component: () => import("@/views/style/index.vue"),
   },
- 
+  {
+    path: "/",
+    component: () => import("@/views/sentence/index.vue"),
+  },
+
 ];
 // 1.返回一个 router 实列，为函数，里面有配置项（对象） history
 const router = createRouter({
