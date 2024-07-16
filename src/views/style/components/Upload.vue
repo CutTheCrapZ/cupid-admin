@@ -55,8 +55,8 @@ const props = defineProps({
         type: Object
     }
 })
-let created_d:string|null = null
-let id:string|null = null
+let created_d: string | null = null
+let id: string | null = null
 onMounted(() => {
     console.log(props.editData);
     let { editData } = props
@@ -99,11 +99,11 @@ const removeDesc = (i: number) => {
 }
 const uploadCustom: any = async (e: any) => {
     let res = await uploadOneDrive({ parentId: "B0216913AC49F0AD!2054", filename: e.file.name, data: e.file })
-    let arr=imageUrl.value.slice(0,-1)
-    imageUrl.value = [...arr,res["@microsoft.graph.downloadUrl"],"upload"]
+    let arr = imageUrl.value.slice(0, -1)
+    imageUrl.value = [...arr, res["@microsoft.graph.downloadUrl"], "upload"]
     console.log(imageUrl.value);
     console.log(res);
-    
+
 }
 const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
     if (!rawFile.type.includes("image")) {
@@ -215,6 +215,33 @@ const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
             bottom: .8rem;
         }
 
+    }
+
+    @media (max-width: 768px) {
+        padding: 3rem 0rem;
+        @include flex(start, center, column);
+
+        .exhibit,
+        .form {
+            width: 100%;
+
+        }
+
+        .exhibit {
+            div {
+                width: 100%;
+                height: 100%;
+                padding: 0;
+            }
+
+        }
+
+        .submit {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 14rem;
+        }
     }
 
 }

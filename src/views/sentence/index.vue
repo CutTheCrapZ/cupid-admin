@@ -53,7 +53,7 @@
         :page-size="reqData.pageSize" />
     </div>
   </div>
-  <el-dialog v-model="dialogVisible" width="50%">
+  <el-dialog v-model="dialogVisible" width="50%" :fullscreen="(isMobile as boolean)">
     <Upload v-if="dialogVisible" :editData="editData" @close="close" />
   </el-dialog>
 </template>
@@ -66,6 +66,10 @@ import { ref, onMounted } from 'vue'
 import { ElMessage } from 'element-plus'
 import Upload from "./components/Upload.vue";
 import { getStyleList, deleteById } from "@/api/sentence";
+import { storeToRefs } from 'pinia';
+import { useThemeConfig } from '@/stores';
+const storesThemeConfig = useThemeConfig();
+const { isMobile } = storeToRefs(storesThemeConfig)
 const editData = ref({})
 const edit = (row: object) => {
   editData.value = row

@@ -48,3 +48,9 @@ export const uploadOneDrive = ({ parentId, filename, data }: { data: object, fil
         url: `/me/drive/items/${parentId}:/${filename}:/content`, data, method: 'PUT', oneDriveHttp: true
     })
 }
+//根据id获取文件
+export const getItemById = (itemId: string) => {
+    return request({
+        url: `/drive/items/${itemId}/content`, method: 'GET', oneDriveHttp: true, img: true
+    })
+}

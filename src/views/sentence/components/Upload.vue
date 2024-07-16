@@ -23,6 +23,7 @@
 import { reactive, onMounted } from 'vue'
 import { ElMessage } from 'element-plus'
 import { createSentence } from "@/api/sentence";
+
 const emit = defineEmits(['close'])
 
 const cities = [{ label: "一言", value: 0 }, { label: "一言©", value: 1 }, { label: "想法", value: 2 }, { label: "生活", value: 3 }]
@@ -66,13 +67,13 @@ const submit = async () => {
 <style lang='scss' scoped>
 .dialog {
 
+
     :deep(.avatar-uploader) {
         width: 100%;
         height: 100%;
         display: flex;
         align-items: center;
         justify-content: center;
-
     }
 
     :deep(.el-icon.avatar-uploader-icon) {
@@ -154,6 +155,15 @@ const submit = async () => {
         bottom: .8rem;
     }
 
+    @media (max-width: 768px) {
+        padding: 3rem 1rem 3rem 0rem;
 
+        .submit {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 14rem;
+        }
+    }
 }
 </style>

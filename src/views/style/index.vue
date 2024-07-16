@@ -5,6 +5,7 @@
       <p>
         outfit of the day recrod
       </p>
+      <img style="width: 100px;height: 200px;" ref="iii" src="" alt="" srcset="">
       <div class="btn">
         <div @click="hanlerSearch" style="display: flex;align-items: center;">
           <input class="inp" ref="inp" type="text" v-model="search_value" placeholder="Please input">
@@ -32,13 +33,17 @@
       <el-table-column prop="src" label="image">
         <template #default="scope">
           <div style="display: flex; align-items: center;height: 3.2rem;width: 100%;" @click="console.log(scope)">
-            <el-image :preview-teleported="true" :preview-src-list="[scope.row.imgUrl[0]]" :src="scope.row.imgUrl[0]"
-              fit="fill" style="height: 3.2rem;" />
-
+            <!-- <el-image :preview-teleported="true" :preview-src-list="[scope.row.showImage]" :src="scope.row.showImage"
+              fit="fill" style="height: 3.2rem;" /> -->
+            <img :src="scope.row.showImage" style="height: 3.2rem;">
           </div>
         </template>
       </el-table-column>
-      <el-table-column prop="created_d" label="created" />
+      <el-table-column prop="created_d" label="created">
+        <template #default="scope">
+          {{ scope.row.created_d.slice(0, 10) }}
+        </template>
+      </el-table-column>
       <el-table-column label="action" fixed="right" width="120">
         <template #default="scope">
           <el-button link type="primary" size="small" @click="edit(scope.row)">Edit</el-button>
@@ -51,7 +56,7 @@
         :page-size="reqData.pageSize" />
     </div>
   </div>
-  <el-dialog v-model="dialogVisible" width="60%">
+  <el-dialog v-model="dialogVisible" width="60%" :fullscreen="(isMobile as boolean)">
     <Upload v-if="dialogVisible" :editData="editData" @close="close" />
   </el-dialog>
 </template>
@@ -64,6 +69,12 @@ import { ref, onMounted } from 'vue'
 // import { ElMessageBox } from 'element-plus'
 import Upload from "./components/Upload.vue";
 import { getStyleList, deleteById } from "@/api/style";
+import { getItemById } from "@/api/oneDrive";
+import { disposeOneDriveImage } from "@/utils/common";
+import { storeToRefs } from 'pinia';
+import { useThemeConfig } from '@/stores';
+const storesThemeConfig = useThemeConfig();
+const { isMobile } = storeToRefs(storesThemeConfig)
 const editData = ref({})
 const edit = (row: object) => {
   editData.value = row
@@ -73,7 +84,7 @@ const deleteItem = async (id: string) => {
   await deleteById(id);
   getList();
 }
-const tableData = ref([])
+const tableData = ref<any>([])
 const search_icon = ref<HTMLElement>()
 const inp = ref<HTMLInputElement>()
 const search_value = ref('')
@@ -94,11 +105,21 @@ const currentChange = (num: number) => {
   getList()
 }
 const reqData = ref<{ curPage: number, pageSize: number, total: number }>({ curPage: 1, pageSize: 20, total: 0 })
+const iii = ref<HTMLImageElement>()
 const getList = async () => {
   let res = await getStyleList(reqData.value)
   if (res.code === 200) {
-    tableData.value = res.list
     reqData.value = res.pagination
+    let arr = res.list.map(async (ele: { imgIdList: string[], _id: string, showImage: string }) => {
+      let buffer = await getItemById(ele.imgIdList[0])
+      ele.showImage = disposeOneDriveImage(buffer)
+      return ele
+    })
+    Promise.all(arr).then(res => {
+      tableData.value = [...res];
+      (iii.value as HTMLImageElement).src = tableData.value[0].showImage
+      console.log(tableData.value[0].showImage)
+    })
   }
 }
 onMounted(() => {
