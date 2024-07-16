@@ -23,7 +23,6 @@
 import { reactive, onMounted } from 'vue'
 import { ElMessage } from 'element-plus'
 import { createSentence } from "@/api/sentence";
-
 const emit = defineEmits(['close'])
 
 const cities = [{ label: "一言", value: 0 }, { label: "一言©", value: 1 }, { label: "想法", value: 2 }, { label: "生活", value: 3 }]
@@ -66,7 +65,6 @@ const submit = async () => {
 </script>
 <style lang='scss' scoped>
 .dialog {
-
 
     :deep(.avatar-uploader) {
         width: 100%;
