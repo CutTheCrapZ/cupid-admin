@@ -8,6 +8,7 @@ let loadingTimer: any = null
 export default (config: any) => {
     let oneDriveHttp = config.oneDriveHttp
     // 创建axios实例
+    
     const service: any = axios.create({
         baseURL: import.meta.env.VITE_API_BASE_URL,
         // 超时

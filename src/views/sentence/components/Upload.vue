@@ -72,7 +72,6 @@ const submit = async () => {
         display: flex;
         align-items: center;
         justify-content: center;
-
     }
 
     :deep(.el-icon.avatar-uploader-icon) {
@@ -154,6 +153,15 @@ const submit = async () => {
         bottom: .8rem;
     }
 
+    @media (max-width: 768px) {
+        padding: 3rem 1rem 3rem 0rem;
 
+        .submit {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 14rem;
+        }
+    }
 }
 </style>
