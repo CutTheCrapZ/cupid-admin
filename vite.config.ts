@@ -4,10 +4,17 @@ import vue from '@vitejs/plugin-vue'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [vue()],
-  resolve:{
-    alias:{
-      "@":"/src/"
+  resolve: {
+    alias: {
+      "@": "/src/"
     }
+  },
+  base: '/admin/',
+  server: {
+    host: '0.0.0.0',
+    port: 5174,
+    // 是否开启 https
+    https: false,
   },
   css: {
     // css预处理器

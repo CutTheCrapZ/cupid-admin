@@ -22,7 +22,7 @@ const isPc = () => {
     return flag;
 }
 //如果不是生产环境并且不是pc设备那么就显示调试
-if (import.meta.env.VITE_NODE_ENV != "production" && !isPc()) {
-    console.log(import.meta.env.VITE_NODE_ENV);
-    const vConsole = new VConsole();
-}
+// if (import.meta.env.VITE_NODE_ENV != "production" && !isPc()) {
+//     console.log(import.meta.env.VITE_NODE_ENV);
+//     const vConsole = new VConsole();
+// }
