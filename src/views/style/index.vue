@@ -5,7 +5,6 @@
       <p>
         outfit of the day recrod
       </p>
-      <img style="width: 100px;height: 200px;" ref="iii" src="" alt="" srcset="">
       <div class="btn">
         <div @click="hanlerSearch" style="display: flex;align-items: center;">
           <input class="inp" ref="inp" type="text" v-model="search_value" placeholder="Please input">
@@ -33,9 +32,9 @@
       <el-table-column prop="src" label="image">
         <template #default="scope">
           <div style="display: flex; align-items: center;height: 3.2rem;width: 100%;" @click="console.log(scope)">
-            <!-- <el-image :preview-teleported="true" :preview-src-list="[scope.row.showImage]" :src="scope.row.showImage"
-              fit="fill" style="height: 3.2rem;" /> -->
-            <img :src="scope.row.showImage" style="height: 3.2rem;">
+            <el-image :preview-teleported="true" :preview-src-list="[scope.row.showImage]" :src="scope.row.showImage"
+              fit="fill" style="height: 3.2rem;" />
+            <!-- <img :src="scope.row.showImage" style="height: 3.2rem;"> -->
           </div>
         </template>
       </el-table-column>
@@ -118,8 +117,8 @@ const getList = async () => {
     Promise.all(arr).then(res => {
       tableData.value = [...res];
       (iii.value as HTMLImageElement).src = tableData.value[0].showImage
-      console.log(tableData.value[0].showImage)
     })
+ 
   }
 }
 onMounted(() => {
