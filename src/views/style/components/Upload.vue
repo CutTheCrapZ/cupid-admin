@@ -184,6 +184,7 @@ const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
             padding: .5rem;
             color: #606266;
             font-size: .8rem;
+            box-sizing: border-box;
         }
 
         form {

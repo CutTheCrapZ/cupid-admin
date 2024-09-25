@@ -104,7 +104,6 @@ const currentChange = (num: number) => {
   getList()
 }
 const reqData = ref<{ curPage: number, pageSize: number, total: number }>({ curPage: 1, pageSize: 20, total: 0 })
-const iii = ref<HTMLImageElement>()
 const getList = async () => {
   let res = await getStyleList(reqData.value)
   if (res.code === 200) {
@@ -116,7 +115,6 @@ const getList = async () => {
     })
     Promise.all(arr).then(res => {
       tableData.value = [...res];
-      (iii.value as HTMLImageElement).src = tableData.value[0].showImage
     })
  
   }
